@@ -10,9 +10,9 @@
 </div>
 
 
-Performyzr is a high-performance Node.js backend application written in TypeScript, offering a robust RESTful API for managing athlete data and performance metrics. Built with a strong emphasis on scalability and clean architecture, Dynalyzr utilizes cutting-edge technologies like Hono, Prisma, and PostgreSQL. It adheres to hexagonal architecture and SOLID principles, ensuring the codebase is maintainable and extensible.
+Performyzr is a high-performance Node.js backend application written in TypeScript, offering a robust RESTful API for managing athlete data and performance metrics. Built with a strong emphasis on scalability and clean architecture, Performyzr utilizes cutting-edge technologies like Hono, Prisma, and PostgreSQL. It adheres to hexagonal architecture and SOLID principles, ensuring the codebase is maintainable and extensible.
 
-With Inversify handling dependency injection and Jest providing a comprehensive testing framework, Dynalyzr guarantees a modular and reliable system. The use of Docker and Docker Compose allows for seamless deployment and consistent development environments. Whether you're tracking athlete performance or managing complex data sets, Dynalyzr delivers efficiency and scalability in one powerful package.
+With Inversify handling dependency injection and Jest providing a comprehensive testing framework, Dynalyzr guarantees a modular and reliable system. The use of Docker and Docker Compose allows for seamless deployment and consistent development environments. Whether you're tracking athlete performance or managing complex data sets, Performyzr delivers efficiency and scalability in one powerful package.
 
 Technology Stack:
 
