@@ -2,7 +2,7 @@
 
 <div style="max-width: 600px; margin: 0 auto;">
  <p align="center"> 
- <img src="logo.jpg" width="500" height="400" alt="Image">
+ <img src="logo.png" width="500" height="400" alt="Image">
 </p>
 </div>
 
