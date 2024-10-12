@@ -1,0 +1,14 @@
+{
+  "name": "performyzr",
+  "version": "1.0.0",
+  "description": "<div style=\"max-width: 600px; margin: 0 auto;\">\r  <p align=\"center\"> \r  <img src=\"logo.png\" width=\"500\" height=\"400\" alt=\"Image\">\r </p>\r </div>",
+  "main": "main.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ivan Cardozo",
+  "license": "ISC"
+}
