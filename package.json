@@ -2,14 +2,14 @@
   "name": "performyzr",
   "version": "1.0.0",
   "description": "<div style=\"max-width: 600px; margin: 0 auto;\">\r  <p align=\"center\"> \r  <img src=\"logo.png\" width=\"500\" height=\"400\" alt=\"Image\">\r </p>\r </div>",
-  "main": "main.ts",
+  "main": "dist/main.ts",
   "directories": {
     "test": "tests"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/main.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
+    "start": "tsc && node ./dist/main.js",
+    "dev": "nodemon src/main.ts",
     "lint": "eslint 'src/**/*.{ts,tsx}' --quiet",
     "test": "jest",
     "format": "prettier --write 'src/**/*.{ts,tsx,json,md}'"
@@ -17,6 +17,7 @@
   "author": "Ivan Cardozo",
   "license": "ISC",
   "dependencies": {
+    "@hono/node-server": "^1.13.2",
     "@prisma/client": "^5.20.0",
     "hono": "^4.6.4",
     "inversify": "^6.0.2",
@@ -35,6 +36,7 @@
     "prettier": "^3.3.3",
     "prisma": "^5.20.0",
     "ts-jest": "^29.2.5",
-    "ts-node-dev": "^2.0.0"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   }
 }
