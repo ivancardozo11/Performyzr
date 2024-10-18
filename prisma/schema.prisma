@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Athlete {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) @db.Uuid
   name      String
   age       Int
   team      String
