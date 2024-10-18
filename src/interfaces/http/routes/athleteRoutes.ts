@@ -1,4 +1,3 @@
-// athleteRoutes.ts
 import { Hono } from 'hono';
 import { AthleteController } from '../controllers/AthleteController';
 import container from '../../../infrastructure/di/container';
