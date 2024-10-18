@@ -8,9 +8,23 @@ datasource db {
 }
 
 model Athlete {
-  id        String   @id @default(uuid()) @db.Uuid
-  name      String
-  age       Int
-  team      String
-  createdAt DateTime @default(now())
+  id                String               @id @default(uuid()) @db.Uuid
+  name              String
+  age               Int
+  team              String
+  createdAt         DateTime             @default(now())
+  
+  performanceMetrics PerformanceMetric[]
+}
+
+model PerformanceMetric {
+  id         String    @id @default(uuid()) @db.Uuid
+  athleteId  String    @db.Uuid
+  athlete    Athlete   @relation(fields: [athleteId], references: [id])
+  metricType String
+  value      Float
+  unit       String
+  timestamp  DateTime  @default(now())
+
+  @@index([athleteId], name: "athleteId_idx")
 }
