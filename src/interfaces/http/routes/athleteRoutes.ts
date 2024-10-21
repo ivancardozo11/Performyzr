@@ -10,7 +10,7 @@ const performanceMetricController = container.get<PerformanceMetricController>(P
 
 
 athleteRoutes.post('/', athleteController.createAthlete.bind(athleteController));
-
+athleteRoutes.get('/', athleteController.getAllAthletes.bind(athleteController));
 athleteRoutes.post('/:id/metrics', performanceMetricController.addPerformanceMetric.bind(performanceMetricController));  
 
 
