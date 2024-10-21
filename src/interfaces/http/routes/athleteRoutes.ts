@@ -14,6 +14,8 @@ athleteRoutes.get('/:id', athleteController.getAthleteById.bind(athleteControlle
 athleteRoutes.post('/', athleteController.createAthlete.bind(athleteController));
 athleteRoutes.post('/:id/metrics', performanceMetricController.addPerformanceMetric.bind(performanceMetricController));
 athleteRoutes.get('/:id/metrics', performanceMetricController.getMetrics.bind(performanceMetricController));
+athleteRoutes.put('/:id', athleteController.updateAthlete.bind(athleteController));
+athleteRoutes.delete('/:id', athleteController.deleteAthlete.bind(athleteController));
 
 
 export { athleteRoutes };

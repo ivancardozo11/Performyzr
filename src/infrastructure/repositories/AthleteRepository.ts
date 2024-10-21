@@ -20,4 +20,20 @@ export class AthleteRepository implements IAthleteRepository {
       include: { performanceMetrics: true },
     });
   }
+  async update(id: string, data: Partial<Athlete>): Promise<Athlete> {
+    return await prisma.athlete.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.performanceMetric.deleteMany({
+      where: { athleteId: id },
+    });
+
+    await prisma.athlete.delete({
+      where: { id },
+    });
+  }
 }
