@@ -3,6 +3,7 @@ import { Container } from 'inversify';
 import { AthleteController } from '../../interfaces/http/controllers/AthleteController';
 import { CreateAthleteService } from '../../application/services/Athlete/CreateAthleteService';
 import { AddPerformanceMetricService } from '../../application/services/PerformanceMetric/AddPerformanceMetricService';
+import { GetMetricsService } from '../../application/services/PerformanceMetric/GetMetricsService';
 import { GetAllAthletesService } from '../../application/services/Athlete/GetAllAthletesService';
 import { GetAthleteByIdService } from '../../application/services/Athlete/GetAthleteByIdService';
 import { IAthleteRepository } from '../../domain/repositories/IAthleteRepository';
@@ -23,6 +24,7 @@ container.bind<CreateAthleteService>(CreateAthleteService).to(CreateAthleteServi
 container.bind<AddPerformanceMetricService>(AddPerformanceMetricService).to(AddPerformanceMetricService);
 container.bind<GetAllAthletesService>(GetAllAthletesService).to(GetAllAthletesService);
 container.bind<GetAthleteByIdService>(GetAthleteByIdService).to(GetAthleteByIdService);
+container.bind<GetMetricsService>(GetMetricsService).to(GetMetricsService);
 
 container.bind<IAthleteRepository>('IAthleteRepository').to(AthleteRepository);
 container.bind<IPerformanceMetricRepository>('IPerformanceMetricRepository').to(PerformanceMetricRepository);

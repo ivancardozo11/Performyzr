@@ -9,10 +9,11 @@ const athleteController = container.get<AthleteController>(AthleteController);
 const performanceMetricController = container.get<PerformanceMetricController>(PerformanceMetricController);
 
 
-athleteRoutes.post('/', athleteController.createAthlete.bind(athleteController));
 athleteRoutes.get('/', athleteController.getAllAthletes.bind(athleteController));
 athleteRoutes.get('/:id', athleteController.getAthleteById.bind(athleteController));
-athleteRoutes.post('/:id/metrics', performanceMetricController.addPerformanceMetric.bind(performanceMetricController));  
+athleteRoutes.post('/', athleteController.createAthlete.bind(athleteController));
+athleteRoutes.post('/:id/metrics', performanceMetricController.addPerformanceMetric.bind(performanceMetricController));
+athleteRoutes.get('/:id/metrics', performanceMetricController.getMetrics.bind(performanceMetricController));
 
 
 export { athleteRoutes };
