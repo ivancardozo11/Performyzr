@@ -11,8 +11,7 @@ const performanceMetricController = container.get<PerformanceMetricController>(P
 
 athleteRoutes.post('/', athleteController.createAthlete.bind(athleteController));
 
-athleteRoutes.post('/:id', performanceMetricController.addPerformanceMetric.bind(performanceMetricController));
-  
+athleteRoutes.post('/:id/metrics', performanceMetricController.addPerformanceMetric.bind(performanceMetricController));  
 
 
 export { athleteRoutes };
