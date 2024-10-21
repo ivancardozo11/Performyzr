@@ -9,12 +9,15 @@ export class AthleteRepository implements IAthleteRepository {
     return await prisma.athlete.create({ data });
   }
   async findById(id: string): Promise<Athlete | null> {
-    console.log('ID enviado a findById:', id);
     return await prisma.athlete.findUnique({
       where: { id },
+      include: { performanceMetrics: true },
     });
   }
+
   async findAll(): Promise<Athlete[]> {
-    return await prisma.athlete.findMany();
+    return await prisma.athlete.findMany({
+      include: { performanceMetrics: true },
+    });
   }
 }
