@@ -10,7 +10,7 @@ export class PerformanceMetricController {
 
   async addPerformanceMetric(c: Context) {
     try {
-      const athleteId = c.req.param('id');
+      const athleteId = c.req.param('id').trim();
       const requestData = await c.req.json();
 
       const newMetric = await this.addPerformanceMetricService.execute({
@@ -20,7 +20,8 @@ export class PerformanceMetricController {
 
       return c.json({ message: 'Performance metric added', data: newMetric });
     } catch (error) {
-      return c.json({ error: 'Failed to add performance metric' }, 400);
+      console.log(error)
+      return c.json({ error: 'Failed to add performance' }, 400);
     }
   }
 }
