@@ -1,7 +1,8 @@
 import { inject, injectable } from 'inversify';
 import { IPerformanceMetricRepository } from '../../../domain/repositories/IPerformanceMetricRepository';
-import { PerformanceMetric } from '../../../domain/models/PerformanceMetric';
 import { calculateLinearRegression, predictFutureValue } from '../../../utils/LinearRegression';
+import redisClient from '../../../infrastructure/cache/RedisClient';
+
 
 interface TrendPoint {
   timestamp: Date;
@@ -15,6 +16,13 @@ export class MetricsTrendService {
   ) {}
 
   async execute(athleteId: string, metricType: string, dateRange?: { start: Date; end: Date }): Promise<{ trend: TrendPoint[]; prediction: number }> {
+    const cacheKey = `athlete_metrics_trends_${athleteId}_${metricType}_${dateRange?.start?.toISOString() || 'no_start'}_${dateRange?.end?.toISOString() || 'no_end'}`;
+
+    const cachedTrend = await redisClient.get(cacheKey);
+    if (cachedTrend) {
+      return JSON.parse(cachedTrend);
+    }
+    
     const metrics = await this.performanceMetricRepository.getMetricsTrend(athleteId, metricType, dateRange);
 
     if (metrics.length === 0) {
@@ -35,7 +43,10 @@ export class MetricsTrendService {
       timestamp: metric.timestamp,
       value: metric.value,
     }));
+    const result = { trend, prediction };
 
-    return { trend, prediction };
+    await redisClient.set(cacheKey, JSON.stringify(result), { EX: 3600 });
+
+    return result;
   }
 }
