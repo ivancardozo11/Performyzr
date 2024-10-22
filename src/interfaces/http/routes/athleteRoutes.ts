@@ -17,6 +17,8 @@ athleteRoutes.get('/:id/metrics', performanceMetricController.getMetrics.bind(pe
 athleteRoutes.put('/:id', athleteController.updateAthlete.bind(athleteController));
 athleteRoutes.delete('/:id', athleteController.deleteAthlete.bind(athleteController));
 athleteRoutes.get('/:id/metrics/aggregate', performanceMetricController.aggregateMetrics.bind(performanceMetricController));
+athleteRoutes.get('/metrics/leaderboard', performanceMetricController.getLeaderboard.bind(performanceMetricController));
+
 
 
 export { athleteRoutes };

@@ -4,12 +4,9 @@ import { IPerformanceMetricRepository } from '../../domain/repositories/IPerform
 import { PerformanceMetric } from '../../domain/models/PerformanceMetric';
 import { MetricAggregateResult } from '../../domain/interfaces/MetricAggregateResult';
 import { MetricAggregator } from '../../domain/value-objects/MetricAggregator';
+import { LeaderboardEntry } from '../../domain/interfaces/LeaderboardEntry';
+import { QueryParams } from '../../domain/interfaces/QueryParams';
 
-
-interface QueryParams {
-  metricType?: string;
-  dateRange?: { start: string; end: string };
-}
 
 @injectable()
 export class PerformanceMetricRepository implements IPerformanceMetricRepository {
@@ -76,5 +73,34 @@ export class PerformanceMetricRepository implements IPerformanceMetricRepository
     return { average, max, min, count, standardDeviation };
   }
   
+  async getLeaderboardByMetricType(metricType: string, limit: number): Promise<LeaderboardEntry[]> {
+    const leaderboard = await prisma.performanceMetric.groupBy({
+      by: ['athleteId'],
+      where: {
+        metricType,
+      },
+      _avg: {
+        value: true,
+      },
+      orderBy: {
+        _avg: {
+          value: 'desc',
+        },
+      },
+      take: limit,
+    });
 
+    const leaderboardWithAthleteNames: LeaderboardEntry[] = await Promise.all(
+      leaderboard.map(async (entry) => {
+        const athlete = await prisma.athlete.findUnique({ where: { id: entry.athleteId } });
+        return {
+          athleteId: entry.athleteId,
+          athleteName: athlete ? athlete.name : 'Unknown',
+          averageValue: entry._avg.value ?? 0,
+        };
+      })
+    );
+
+    return leaderboardWithAthleteNames;
+  }
 }
