@@ -2,6 +2,9 @@ import { inject, injectable } from 'inversify';
 import { IAthleteRepository } from '../../../domain/repositories/IAthleteRepository';
 import { IPerformanceMetricRepository } from '../../../domain/repositories/IPerformanceMetricRepository';
 import { PerformanceMetric } from '../../../domain/models/PerformanceMetric';
+import { invalidateAthleteMetricsCache } from '../../../utils/cacheUtils';
+
+
 
 @injectable()
 export class AddPerformanceMetricService {
@@ -25,6 +28,8 @@ export class AddPerformanceMetricService {
     };
   
     const newMetric = await this.performanceMetricRepository.create(metricData);
+    
+    await invalidateAthleteMetricsCache(athleteId);
     return newMetric;
   }
 }
