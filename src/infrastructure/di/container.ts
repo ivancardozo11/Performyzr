@@ -8,6 +8,7 @@ import { GetAllAthletesService } from '../../application/services/Athlete/GetAll
 import { GetAthleteByIdService } from '../../application/services/Athlete/GetAthleteByIdService';
 import { UpdateAthleteService } from '../../application/services/Athlete/UpdateAthleteService';
 import { DeleteAthleteService } from '../../application/services/Athlete/DeleteAthleteService';
+import { AggregateMetricsService } from '../../application/services/PerformanceMetric/AggregateMetricsService';
 import { IAthleteRepository } from '../../domain/repositories/IAthleteRepository';
 import { IPerformanceMetricRepository } from '../../domain/repositories/IPerformanceMetricRepository';
 import { AthleteRepository } from '../repositories/AthleteRepository';
@@ -29,6 +30,8 @@ container.bind<GetAthleteByIdService>(GetAthleteByIdService).to(GetAthleteByIdSe
 container.bind<GetMetricsService>(GetMetricsService).to(GetMetricsService);
 container.bind<UpdateAthleteService>(UpdateAthleteService).to(UpdateAthleteService);
 container.bind<DeleteAthleteService>(DeleteAthleteService).to(DeleteAthleteService);
+container.bind<AggregateMetricsService>(AggregateMetricsService).to(AggregateMetricsService);
+
 
 container.bind<IAthleteRepository>('IAthleteRepository').to(AthleteRepository);
 container.bind<IPerformanceMetricRepository>('IPerformanceMetricRepository').to(PerformanceMetricRepository);

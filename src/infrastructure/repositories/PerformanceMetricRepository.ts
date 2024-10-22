@@ -2,6 +2,9 @@ import { injectable } from 'inversify';
 import prisma from '../orm/PrismaClient';
 import { IPerformanceMetricRepository } from '../../domain/repositories/IPerformanceMetricRepository';
 import { PerformanceMetric } from '../../domain/models/PerformanceMetric';
+import { MetricAggregateResult } from '../../domain/interfaces/MetricAggregateResult';
+import { MetricAggregator } from '../../domain/value-objects/MetricAggregator';
+
 
 interface QueryParams {
   metricType?: string;
@@ -34,4 +37,44 @@ export class PerformanceMetricRepository implements IPerformanceMetricRepository
       where: whereClause,
     });
   }
+
+  async aggregateByAthleteId(athleteId: string, metricType?: string): Promise<MetricAggregateResult> {
+  
+
+  const whereClause: { athleteId: string; metricType?: string } = { athleteId };
+  
+    if (metricType) {
+      whereClause.metricType = metricType;
+    }
+  
+    const aggregateResult = await prisma.performanceMetric.aggregate({
+      where: whereClause,
+      _avg: { value: true },
+      _max: { value: true },
+      _min: { value: true },
+      _count: { value: true },
+    });
+  
+    const average = aggregateResult._avg.value || 0;
+    const max = aggregateResult._max.value || 0;
+    const min = aggregateResult._min.value || 0;
+    const count = aggregateResult._count.value || 0;
+  
+    let standardDeviation: number | undefined;
+  
+    if (count > 1) {
+      const metrics: Array<{ value: number }> = await prisma.performanceMetric.findMany({
+        where: whereClause,
+        select: { value: true },
+      });
+  
+      
+      const values = metrics.map((m) => m.value);
+      standardDeviation = MetricAggregator.calculateStandardDeviation(values, average);
+    }
+  
+    return { average, max, min, count, standardDeviation };
+  }
+  
+
 }
