@@ -10,6 +10,7 @@ import { UpdateAthleteService } from '../../application/services/Athlete/UpdateA
 import { DeleteAthleteService } from '../../application/services/Athlete/DeleteAthleteService';
 import { AggregateMetricsService } from '../../application/services/PerformanceMetric/AggregateMetricsService';
 import { LeaderboardService } from '../../application/services/PerformanceMetric/LeaderboardService';
+import { MetricsTrendService } from '../../application/services/PerformanceMetric/MetricsTrendService';
 import { IAthleteRepository } from '../../domain/repositories/IAthleteRepository';
 import { IPerformanceMetricRepository } from '../../domain/repositories/IPerformanceMetricRepository';
 import { AthleteRepository } from '../repositories/AthleteRepository';
@@ -33,6 +34,7 @@ container.bind<UpdateAthleteService>(UpdateAthleteService).to(UpdateAthleteServi
 container.bind<DeleteAthleteService>(DeleteAthleteService).to(DeleteAthleteService);
 container.bind<AggregateMetricsService>(AggregateMetricsService).to(AggregateMetricsService);
 container.bind<LeaderboardService>(LeaderboardService).to(LeaderboardService);
+container.bind<MetricsTrendService>(MetricsTrendService).to(MetricsTrendService);
 
 
 container.bind<IAthleteRepository>('IAthleteRepository').to(AthleteRepository);

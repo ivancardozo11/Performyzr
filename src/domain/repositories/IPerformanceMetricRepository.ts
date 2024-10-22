@@ -7,4 +7,6 @@ export interface IPerformanceMetricRepository {
   findByAthleteId(athleteId: string, queryParams: { metricType?: string, dateRange?: { start: string, end: string } }): Promise<PerformanceMetric[]>;
   aggregateByAthleteId(athleteId: string, metricType?: string): Promise<MetricAggregateResult>;
   getLeaderboardByMetricType(metricType: string, limit: number): Promise<LeaderboardEntry[]>;
+  getMetricsTrend(athleteId: string, metricType: string, dateRange?: { start: Date; end: Date }): Promise<PerformanceMetric[]>;
+
 }

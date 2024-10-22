@@ -4,6 +4,7 @@ import { AddPerformanceMetricService } from '../../../application/services/Perfo
 import { GetMetricsService } from '../../../application/services/PerformanceMetric/GetMetricsService';
 import { AggregateMetricsService } from '../../../application/services/PerformanceMetric/AggregateMetricsService';
 import { LeaderboardService } from '../../../application/services/PerformanceMetric/LeaderboardService';
+import { MetricsTrendService } from '../../../application/services/PerformanceMetric/MetricsTrendService';
 import { handleControllerError } from '../../../utils/errorHandler';
 
 @injectable()
@@ -12,7 +13,8 @@ export class PerformanceMetricController {
     @inject(AddPerformanceMetricService) private addPerformanceMetricService: AddPerformanceMetricService,
     @inject(GetMetricsService) private getMetricsService: GetMetricsService,
     @inject(AggregateMetricsService) private aggregateMetricsService: AggregateMetricsService,
-    @inject(LeaderboardService) private leaderboardService: LeaderboardService
+    @inject(LeaderboardService) private leaderboardService: LeaderboardService,
+    @inject(MetricsTrendService) private metricsTrendService: MetricsTrendService
   ) {}
 
   async addPerformanceMetric(c: Context) {
@@ -70,5 +72,28 @@ export class PerformanceMetricController {
       return c.json({ error: errorMessage }, statusCode);
     }
   }
+
+  async getMetricsTrend(c: Context) {
+    try {
+      const athleteId = c.req.param('id').trim();
+      const metricType = c.req.query('metricType');
+      const start = c.req.query('start');
+      const end = c.req.query('end');
+
+      if (!metricType) {
+        return c.json({ error: 'Metric type is required' }, 400);
+      }
+
+      const dateRange = start && end ? { start: new Date(start), end: new Date(end) } : undefined;
+
+      const trendData = await this.metricsTrendService.execute(athleteId, metricType, dateRange);
+
+      return c.json({ data: trendData }, 200);
+    } catch (error: unknown) {
+      const { error: errorMessage, statusCode } = handleControllerError(error, 'Failed to retrieve metrics trend');
+      return c.json({ error: errorMessage }, statusCode);
+    }
+  }
+  
   
 }
