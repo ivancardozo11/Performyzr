@@ -103,4 +103,22 @@ export class PerformanceMetricRepository implements IPerformanceMetricRepository
 
     return leaderboardWithAthleteNames;
   }
+  async getMetricsTrend(athleteId: string, metricType: string, dateRange?: { start: Date; end: Date }): Promise<PerformanceMetric[]> {
+    const whereClause: Record<string, unknown> = { athleteId, metricType };
+
+    if (dateRange?.start && dateRange?.end) {
+      whereClause.timestamp = {
+        gte: dateRange.start,
+        lte: dateRange.end,
+      };
+    }
+
+    return await prisma.performanceMetric.findMany({
+      where: whereClause,
+      orderBy: {
+        timestamp: 'asc',
+      },
+    });
+  }
+  
 }
