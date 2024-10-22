@@ -4,6 +4,8 @@ import { Hono } from 'hono';
 import { logger } from 'hono/logger';
 import { athleteRoutes } from './interfaces/http/routes/athleteRoutes';
 import redisClient from './infrastructure/cache/RedisClient';
+import { authRoutes } from './interfaces/http/routes/authRoutes';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,6 +14,7 @@ const app = new Hono();
 app.use('*', logger());
 app.get('/', (c) => c.text('Local server running from Hono 👩‍🚀👩‍🚀'));
 app.route('/athletes', athleteRoutes);
+app.route('/auth', authRoutes);
 
 const port = process.env.PORT || 3000;
 
