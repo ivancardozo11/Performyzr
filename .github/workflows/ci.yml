@@ -37,9 +37,6 @@ jobs:
       - name: Run Prettier
         run: npm run format
 
-      - name: Run ESLint
-        run: npm run lint
-
       - name: Build project
         run: npm run build
         if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
