@@ -11,7 +11,6 @@ export class LeaderboardService {
 
   async execute(metricType: string, limit: number = 10): Promise<LeaderboardEntry[]> {
     const cacheKey = `athlete_metrics_leaderboard_${metricType}_limit_${limit}`;
-    console.log(cacheKey, "esta es la cache generada por Leaderboard");
 
     const cachedLeaderboard = await redisClient.get(cacheKey);
     if (cachedLeaderboard) {
